@@ -108,9 +108,9 @@ mybatis:
 
 # PageHelper分页插件
 pagehelper:
-  helperDialect: mysql
-  supportMethodsArguments: true
-  params: count=countSql
+  helperDialect: mysql            # 指定MySQL方言
+  supportMethodsArguments: true   # 支持方法参数自动分页
+  params: count=countSql          # 配置count查询的参数映射
 
 # Swagger配置
 swagger:
