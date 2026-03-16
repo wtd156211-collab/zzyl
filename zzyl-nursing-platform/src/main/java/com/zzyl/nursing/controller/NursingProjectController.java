@@ -3,11 +3,16 @@ package com.zzyl.nursing.controller;
 import com.zzyl.common.annotation.Log;
 import com.zzyl.common.core.controller.BaseController;
 import com.zzyl.common.core.domain.AjaxResult;
+import com.zzyl.common.core.domain.R;
 import com.zzyl.common.core.page.TableDataInfo;
 import com.zzyl.common.enums.BusinessType;
 import com.zzyl.common.utils.poi.ExcelUtil;
 import com.zzyl.nursing.domain.NursingProject;
 import com.zzyl.nursing.service.INursingProjectService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +20,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+import static com.zzyl.common.core.domain.R.ok;
+
 /**
  * 护理项目 Controller
  * 
  * @author wtd
  * @date 2026-03-15
  */
+@Api("护理项目管理")
 @RestController
 @RequestMapping("/nursing/project")
 public class NursingProjectController extends BaseController
@@ -40,9 +48,11 @@ public class NursingProjectController extends BaseController
      * @param nursingProject 护理项目查询条件对象
      * @return TableDataInfo 分页响应结果
      */
+    @ApiOperation("查询护理项目列表")
+    @ApiImplicitParam(name = "nursingProject", value = "护理项目查询条件对象", required = false, paramType = "query")
     @PreAuthorize("@ss.hasPermi('nursing:project:list')")
     @GetMapping("/list")
-    public TableDataInfo list(NursingProject nursingProject)
+    public TableDataInfo<List<NursingProject>> list(NursingProject nursingProject)
     {
         // 启动分页（从 BaseController 继承的方法，默认每页 10 条）
         startPage();
@@ -63,7 +73,9 @@ public class NursingProjectController extends BaseController
      * @param response HTTP 响应对象，用于写入 Excel 文件流
      * @param nursingProject 护理项目查询条件对象
      */
+    @ApiOperation("导出护理项目列表")
     @PreAuthorize("@ss.hasPermi('nursing:project:export')")
+    @ApiImplicitParam(name = "nursingProject", value = "护理项目查询条件对象", required = false, paramType = "query")
     @Log(title = "护理项目", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, NursingProject nursingProject)
@@ -87,12 +99,13 @@ public class NursingProjectController extends BaseController
      * @param id 护理项目主键 ID
      * @return AjaxResult 包含护理项目详情的响应结果
      */
+    @ApiOperation("获取护理项目详细信息")
     @PreAuthorize("@ss.hasPermi('nursing:project:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
+    public R<NursingProject> getInfo(@PathVariable("id") @ApiParam("护理项目主键 ID") Long id)
     {
         // 根据 ID 查询护理项目详情并返回成功响应
-        return success(nursingProjectService.selectNursingProjectById(id));
+        return ok(nursingProjectService.selectNursingProjectById(id));
     }
 
     /**
@@ -107,10 +120,11 @@ public class NursingProjectController extends BaseController
      * @param nursingProject 护理项目对象（包含名称、价格、状态等信息）
      * @return AjaxResult 操作结果响应
      */
+    @ApiOperation("新增护理项目")
     @PreAuthorize("@ss.hasPermi('nursing:project:add')")
     @Log(title = "护理项目", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody NursingProject nursingProject)
+    public AjaxResult add(@RequestBody @ApiParam("护理项目对象") NursingProject nursingProject)
     {
         // 调用 Service 层新增护理项目，并转换为标准 Ajax 响应格式
         return toAjax(nursingProjectService.insertNursingProject(nursingProject));
@@ -128,10 +142,11 @@ public class NursingProjectController extends BaseController
      * @param nursingProject 护理项目对象（必须包含 id 字段）
      * @return AjaxResult 操作结果响应
      */
+    @ApiOperation("修改护理项目")
     @PreAuthorize("@ss.hasPermi('nursing:project:edit')")
     @Log(title = "护理项目", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody NursingProject nursingProject)
+    public AjaxResult edit(@RequestBody @ApiParam("护理项目对象") NursingProject nursingProject)
     {
         // 调用 Service 层更新护理项目，并转换为标准 Ajax 响应格式
         return toAjax(nursingProjectService.updateNursingProject(nursingProject));
@@ -149,10 +164,11 @@ public class NursingProjectController extends BaseController
      * @param ids 护理项目主键 ID 数组
      * @return AjaxResult 操作结果响应
      */
+    @ApiOperation("删除护理项目")
     @PreAuthorize("@ss.hasPermi('nursing:project:remove')")
     @Log(title = "护理项目", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
+    public AjaxResult remove(@PathVariable("ids") @ApiParam("护理项目主键 ID 数组") Long[] ids)
     {
         // 调用 Service 层批量删除护理项目，并转换为标准 Ajax 响应格式
         return toAjax(nursingProjectService.deleteNursingProjectByIds(ids));
