@@ -57,6 +57,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark != null">#{remark},</if>
          </trim>
     </insert>
+    <insert id="batchInsert">
+            insert into nursing_project_plan (plan_id, project_id, execute_time, execute_cycle, execute_frequency, create_time,remark)
+                value
+            <foreach item="item" collection="list" separator=",">
+                (#{planId},#{item.projectId},#{item.executeTime},#{item.executeCycle},#{item.executeFrequency},sysdate(),#{item.remark})
+            </foreach>
+    </insert>
 
     <update id="updateNursingPlan" parameterType="NursingPlan">
         update nursing_plan

@@ -3,7 +3,10 @@ package com.zzyl.nursing.mapper;
 import java.util.List;
 import com.zzyl.nursing.domain.NursingPlan;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zzyl.nursing.domain.NursingProjectPlan;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 /**
  * 护理计划Mapper接口
  * 
@@ -59,5 +62,4 @@ public interface NursingPlanMapper extends BaseMapper<NursingPlan>
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteNursingPlanByIds(Long[] ids);
 }
