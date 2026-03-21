@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.zzyl.common.core.domain.R;
+import com.zzyl.nursing.domain.NursingLevel;
 import com.zzyl.nursing.dto.NursingPlanDto;
 import com.zzyl.nursing.vo.NursingPlanVo;
 import io.swagger.annotations.Api;
@@ -114,5 +115,14 @@ public class NursingPlanController extends BaseController
     public AjaxResult remove(@PathVariable @ApiParam("删除的护理计划ID") Long id)
     {
         return toAjax(nursingPlanService.deleteNursingPlanById(id));
+    }
+    /**
+     * 查询所有护理计划
+     */
+    @GetMapping("/all")
+    @ApiOperation(value = "获取所有护理计划")
+    public R<List<NursingPlan>> listAll()
+    {
+        return R.ok(nursingPlanService.getAllNursingPlans());
     }
 }

@@ -109,10 +109,10 @@ public class NursingProjectController extends BaseController
     @ApiOperation("删除护理项目")
     @PreAuthorize("@ss.hasPermi('nursing:project:remove')")
     @Log(title = "护理项目", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable @ApiParam("删除的护理项目ID") Long[] ids)
+	@DeleteMapping("/{id}")
+    public AjaxResult remove(@PathVariable @ApiParam("删除的护理项目ID") Long id)
     {
-        return toAjax(nursingProjectService.deleteNursingProjectByIds(ids));
+        return toAjax(nursingProjectService.deleteNursingProjectById(id));
     }
 
     @GetMapping("/all")

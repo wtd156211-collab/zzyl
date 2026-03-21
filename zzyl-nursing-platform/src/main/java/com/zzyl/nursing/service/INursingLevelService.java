@@ -3,6 +3,7 @@ package com.zzyl.nursing.service;
 import java.util.List;
 import com.zzyl.nursing.domain.NursingLevel;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zzyl.nursing.vo.NursingLevelVo;
 
 /**
  * 护理等级Service接口
@@ -58,4 +59,12 @@ public interface INursingLevelService extends IService<NursingLevel>{
      * @return 结果
      */
     public int deleteNursingLevelById(Long id);
+
+    /**
+     * 查询护理等级Vo列表
+     * @param nursingLevel  条件
+     * @return  结果
+     */
+    List<NursingLevelVo> selectNursingLevelVoList(NursingLevelVo nursingLevel);
+
 }
