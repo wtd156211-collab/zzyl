@@ -67,4 +67,10 @@ public interface INursingLevelService extends IService<NursingLevel>
      * @return  结果
      */
     List<NursingLevelVo> selectNursingLevelVoList(NursingLevel nursingLevel);
+
+    /**
+     * 获取护理等级列表
+     * @return  结果
+     */
+    List<NursingLevel> getAll();
 }
