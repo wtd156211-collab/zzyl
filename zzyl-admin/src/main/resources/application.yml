@@ -144,6 +144,6 @@ dept:
 # 百度千帆大模型配置
 baidu:
   qianfan:
-    apiKey: bce-v3/ALTAK-Y9qmxsO3O8VYsoF0wkwDk/1b0a1ea09ad1097e4e00eefe128febc451473324
+    apiKey: bce-v3/ALTAK-Y9qmxsO3O8VYsoF0wkwDk/1b0a1ea09ad1097e4e00eefe128febc45
     baseUrl: https://qianfan.baidubce.com/v2/
     model: ernie-4.5-turbo-128k
