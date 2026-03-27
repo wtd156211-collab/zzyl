@@ -5,8 +5,7 @@ package com.zzyl.common.constant;
  * 
  * @author ruoyi
  */
-public class CacheConstants
-{
+public class CacheConstants {
     /**
      * 登录用户 redis key
      */
@@ -53,4 +52,9 @@ public class CacheConstants
      * 护理项目列表
      */
     public static final Object NURSING_PROJECT_CACHE = "nursingProject:getAll";
+    /**
+     * 患者列表
+     */
+    public static final String HEALTH_REPORT_KEY = "healthReport";
+
 }
